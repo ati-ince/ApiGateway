@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - API_USERNAME=admin
+      - API_PASSWORD=admin
+      - SERVICE1_URL=http://service1:8001
+      - SERVICE2_URL=http://service2:8002
+    depends_on:
+      - service1
+      - service2
+
+  service1:
+    build: ./service1
+    ports:
+      - "8001:8001"
+    expose:
+      - "8001"
+
+  service2:
+    build: ./service2
+    ports:
+      - "8002:8002"
+    expose:
+      - "8002" 
